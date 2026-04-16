@@ -11,7 +11,7 @@ class LandingPageController extends Controller
     public function index()
     {
         return view('landing', [
-            'schedules' => Schedule::with(['yogaClass', 'trainer'])->where('date', '>=', now())->get(), // [cite: 14]
+            'schedules' => Schedule::with(['yogaClass', 'trainer'])->withCount('bookings')->where('date', '>=', now())->get(), // [cite: 14]
             'trainers' => Trainer::all(), // [cite: 15]
             'classes' => YogaClass::all(), // [cite: 16]
         ]);
