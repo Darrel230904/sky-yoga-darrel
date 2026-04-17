@@ -7,31 +7,49 @@
     <div class="flex flex-col md:flex-row w-full max-w-[850px] rounded-[15px] overflow-hidden shadow-2xl">
         
         <div class="w-full md:w-[55%] bg-white px-12 py-12 flex flex-col justify-center">
-            <h2 class="text-[28px] font-bold text-center text-[#0A1628] mb-6">Create account</h2>
-            
-            @if($errors->any())
-                <div class="bg-red-100 text-red-600 p-2 rounded mb-4 text-xs">
-                    <ul class="list-disc pl-5">
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+            <h2 class="text-[28px] font-bold text-center text-[#0A1628] mb-8">Create account</h2>
 
-            <form action="{{ route('register') }}" method="POST" class="space-y-3">
+            <form action="{{ route('register') }}" method="POST" class="space-y-4">
                 @csrf
-                <input type="text" name="name" placeholder="Name" value="{{ old('name') }}" class="w-full bg-white border border-gray-400 placeholder-gray-400 text-black rounded px-4 py-2.5 focus:outline-none focus:border-[#0A1628] transition-all" required>
                 
-                <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" class="w-full bg-white border border-gray-400 placeholder-gray-400 text-black rounded px-4 py-2.5 focus:outline-none focus:border-[#0A1628] transition-all" required>
+                <div>
+                    <input type="text" name="name" placeholder="Name" value="{{ old('name') }}" 
+                           class="w-full bg-white border placeholder-gray-400 text-black rounded px-4 py-2.5 focus:outline-none focus:border-[#0A1628] transition-all {{ $errors->has('name') ? 'border-red-500' : 'border-gray-400' }}">
+                    @error('name')
+                        <p class="text-red-500 text-[11px] mt-1 ml-1 font-medium">{{ $message }}</p>
+                    @enderror
+                </div>
                 
-                <input type="text" name="phone_number" placeholder="Phone Number" value="{{ old('phone_number') }}" class="w-full bg-white border border-gray-400 placeholder-gray-400 text-black rounded px-4 py-2.5 focus:outline-none focus:border-[#0A1628] transition-all" required>
+                <div>
+                    <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" 
+                           class="w-full bg-white border placeholder-gray-400 text-black rounded px-4 py-2.5 focus:outline-none focus:border-[#0A1628] transition-all {{ $errors->has('email') ? 'border-red-500' : 'border-gray-400' }}">
+                    @error('email')
+                        <p class="text-red-500 text-[11px] mt-1 ml-1 font-medium">{{ $message }}</p>
+                    @enderror
+                </div>
                 
-                <input type="password" name="password" placeholder="Password" class="w-full bg-white border border-gray-400 placeholder-gray-400 text-black rounded px-4 py-2.5 focus:outline-none focus:border-[#0A1628] transition-all" required>
+                <div>
+                    <input type="text" name="phone_number" placeholder="Phone Number" value="{{ old('phone_number') }}" 
+                           class="w-full bg-white border placeholder-gray-400 text-black rounded px-4 py-2.5 focus:outline-none focus:border-[#0A1628] transition-all {{ $errors->has('phone_number') ? 'border-red-500' : 'border-gray-400' }}">
+                    @error('phone_number')
+                        <p class="text-red-500 text-[11px] mt-1 ml-1 font-medium">{{ $message }}</p>
+                    @enderror
+                </div>
                 
-                <input type="password" name="password_confirmation" placeholder="Confirm Password" class="w-full bg-white border border-gray-400 placeholder-gray-400 text-black rounded px-4 py-2.5 focus:outline-none focus:border-[#0A1628] transition-all" required>
+                <div>
+                    <input type="password" name="password" placeholder="Password" 
+                           class="w-full bg-white border placeholder-gray-400 text-black rounded px-4 py-2.5 focus:outline-none focus:border-[#0A1628] transition-all {{ $errors->has('password') ? 'border-red-500' : 'border-gray-400' }}">
+                    @error('password')
+                        <p class="text-red-500 text-[11px] mt-1 ml-1 font-medium">{{ $message }}</p>
+                    @enderror
+                </div>
                 
-                <div class="flex justify-center pt-3">
+                <div>
+                    <input type="password" name="password_confirmation" placeholder="Confirm Password" 
+                           class="w-full bg-white border border-gray-400 placeholder-gray-400 text-black rounded px-4 py-2.5 focus:outline-none focus:border-[#0A1628] transition-all">
+                </div>
+                
+                <div class="flex justify-center pt-4">
                     <button type="submit" class="w-[200px] bg-[#0A1628] text-white text-[15px] font-medium py-2.5 rounded-full hover:bg-gray-800 transition-colors">
                         Sign Up
                     </button>
