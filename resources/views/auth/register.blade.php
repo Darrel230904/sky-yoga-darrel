@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="w-full min-h-screen flex justify-center items-center bg-cover bg-center bg-no-repeat p-4" 
-     style="background-image: url('{{ asset('images/bg-login-wave.png') }}');">
+     style="background-image: url('{{ asset('images/bg-auth-page.png') }}');">
     
     <div class="flex flex-col md:flex-row w-full max-w-[850px] rounded-[15px] overflow-hidden shadow-2xl">
         

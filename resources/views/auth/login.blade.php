@@ -2,27 +2,30 @@
 
 @section('content')
 <div class="w-full min-h-screen flex justify-center items-center bg-cover bg-center bg-no-repeat p-4" 
-     style="background-image: url('{{ asset('images/bg-login-wave.png') }}');">
+     style="background-image: url('{{ asset('images/bg-auth-page.png') }}');">
     
     <div class="flex flex-col md:flex-row w-full max-w-[850px] rounded-[15px] overflow-hidden shadow-2xl">
         
         <div class="w-full md:w-[55%] bg-white px-12 py-16 flex flex-col justify-center">
             <h2 class="text-[28px] font-bold text-center text-[#0A1628] mb-8">Welcome Back</h2>
             
-            @if($errors->any())
-                <div class="bg-red-100 text-red-600 p-3 rounded mb-4 text-sm text-center">
-                    {{ $errors->first() }}
-                </div>
-            @endif
-
             <form action="{{ route('login') }}" method="POST">
                 @csrf
+                
                 <div class="mb-4">
-                    <input type="text" name="login" placeholder="Email" class="w-full bg-white border border-gray-400 placeholder-gray-400 text-black rounded px-4 py-2.5 focus:outline-none focus:border-[#0A1628] transition-all" required>
+                    <input type="text" name="email" placeholder="Email" value="{{ old('email') }}" 
+                           class="w-full bg-white border placeholder-gray-400 text-black rounded px-4 py-2.5 focus:outline-none focus:border-[#0A1628] transition-all {{ $errors->has('email') ? 'border-red-500' : 'border-gray-400' }}">
+                    @error('email')
+                        <p class="text-red-500 text-[11px] mt-1 ml-1 font-medium">{{ $message }}</p>
+                    @enderror
                 </div>
                 
                 <div class="mb-6">
-                    <input type="password" name="password" placeholder="Password" class="w-full bg-white border border-gray-400 placeholder-gray-400 text-black rounded px-4 py-2.5 focus:outline-none focus:border-[#0A1628] transition-all" required>
+                    <input type="password" name="password" placeholder="Password" 
+                           class="w-full bg-white border placeholder-gray-400 text-black rounded px-4 py-2.5 focus:outline-none focus:border-[#0A1628] transition-all {{ $errors->has('password') ? 'border-red-500' : 'border-gray-400' }}">
+                    @error('password')
+                        <p class="text-red-500 text-[11px] mt-1 ml-1 font-medium">{{ $message }}</p>
+                    @enderror
                 </div>
                 
                 <div class="flex justify-center">

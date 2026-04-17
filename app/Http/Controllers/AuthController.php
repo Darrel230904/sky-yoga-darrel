@@ -55,21 +55,29 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $loginField = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone_number';
+        // 1. Validasi Input kosong & Format Email
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ], [
+            // Kustomisasi pesan error sesuai permintaan Anda
+            'email.required' => 'email is required',
+            'email.email' => 'invalid email format',
+            'password.required' => 'password is required',
+        ]);
 
-        $credentials = [
-            $loginField => $request->login,
-            'password' => $request->password
-        ];
-
+        // 2. Cek apakah email dan password cocok (Auth Attempt)
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return Auth::user()->role === 'admin' 
-                ? redirect()->intended('/admin/members') 
-                : redirect()->intended('/');
+            
+            // Redirect ke halaman yang sesuai (misal home/landing page)
+            return redirect()->intended('/');
         }
 
-        return back()->withErrors(['login' => 'Kredensial tidak cocok.']);
+        // 3. Jika salah password / email tidak terdaftar
+        return back()->withErrors([
+            'password' => 'invalid credentials',
+        ])->onlyInput('email'); // Tetap pertahankan isian email agar user tidak perlu mengetik ulang
     }
 
     public function logout(Request $request)
