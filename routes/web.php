@@ -17,7 +17,20 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
+    
+    // Route untuk Forgot Password & Reset
+    Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('forgot.password');
+    Route::post('/forgot-password', [AuthController::class, 'processForgotPassword'])->name('forgot.password.process');
+
+    Route::get('/verify-otp', [AuthController::class, 'showVerifyOtp'])->name('verify.otp');
+    Route::post('/verify-otp', [AuthController::class, 'processVerifyOtp'])->name('verify.otp.process');
+
+    Route::get('/reset-password', [AuthController::class, 'showResetPassword'])->name('reset.password');
+    Route::post('/reset-password', [AuthController::class, 'processResetPassword'])->name('reset.password.process');
+
+    Route::get('/reset-success', [AuthController::class, 'showResetSuccess'])->name('reset.success');
 });
+
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 // --- Member Routes (Self-Service)  ---
